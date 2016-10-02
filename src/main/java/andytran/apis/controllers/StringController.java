@@ -10,23 +10,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 import andytran.apis.models.Response;
 import andytran.apis.services.string.StringService;
-import andytran.apis.utils.CommonUtils;
+import andytran.apis.utils.ControllerUtils;
 
 @RestController
-@RequestMapping(value="/string")
+@RequestMapping(value="api/string")
 public class StringController {
 	
 	@Autowired
 	private StringService stringService;
 	
-	@RequestMapping(value="/reverse/{str}", method=RequestMethod.GET)
+	@RequestMapping(value="reverse/{str}", method=RequestMethod.GET)
 	public ResponseEntity<Response<String>> reverse(@PathVariable String str){
-		return CommonUtils.makeResponseEntity(HttpStatus.OK, stringService.reverse(str));
+		return ControllerUtils.makeResponseEntity(HttpStatus.OK, stringService.reverse(str));
 	}
 	
-	@RequestMapping(value="/palindrome/{str}", method=RequestMethod.GET)
+	@RequestMapping(value="palindrome/{str}", method=RequestMethod.GET)
 	public ResponseEntity<Response<Boolean>> isPalindrome(@PathVariable String str){
-		return CommonUtils.makeResponseEntity(HttpStatus.OK, stringService.isPalindrome(str));
+		return ControllerUtils.makeResponseEntity(HttpStatus.OK, stringService.isPalindrome(str));
+	}
+	
+	@RequestMapping(value="piglatin/{str}", method=RequestMethod.GET)
+	public ResponseEntity<Response<String>> pigLatin(@PathVariable String str){
+		return ControllerUtils.makeResponseEntity(HttpStatus.OK, stringService.pigLatin(str));
 	}
 	
 }

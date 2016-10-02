@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 
 import andytran.apis.models.Response;
 
-public class CommonUtils {
+public class ControllerUtils {
 	
 	public static <T> ResponseEntity<Response<T>> makeResponseEntity(HttpStatus status, T elem){
 		return ResponseEntity

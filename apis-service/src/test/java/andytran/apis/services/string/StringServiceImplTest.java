@@ -24,4 +24,13 @@ public class StringServiceImplTest {
 		assertEquals(stringService.isPalindrome("racecar"), true);
 		assertEquals(stringService.isPalindrome("hello"), false);
 	}
+	
+	@Test
+	public void testPigLatin(){
+		assertEquals(stringService.pigLatin("pig"), "igpay");
+		assertEquals(stringService.pigLatin("glove"), "oveglay");
+		assertEquals(stringService.pigLatin("eat"), "eatway");
+		assertEquals(stringService.pigLatin("omelet"), "omeletway");
+	}
+	
 }
