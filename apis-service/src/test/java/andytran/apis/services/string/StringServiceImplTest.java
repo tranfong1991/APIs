@@ -9,28 +9,29 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 public class StringServiceImplTest {
+	
 	@InjectMocks
 	private StringServiceImpl stringService;
 	
 	@Test
 	public void testReverse(){
-		assertEquals(stringService.reverse("andy"), "ydna");
-		assertEquals(stringService.reverse("yo"), "oy");
-		assertEquals(stringService.reverse("andy tran"), "nart ydna");
+		assertEquals("ydna", stringService.reverse("andy"));
+		assertEquals("oy", stringService.reverse("yo"));
+		assertEquals("nart ydna", stringService.reverse("andy tran"));
 	}
 	
 	@Test
 	public void testIsPalidrome(){
-		assertEquals(stringService.isPalindrome("racecar"), true);
-		assertEquals(stringService.isPalindrome("hello"), false);
+		assertEquals(true, stringService.isPalindrome("racecar"));
+		assertEquals(false, stringService.isPalindrome("hello"));
 	}
 	
 	@Test
 	public void testPigLatin(){
-		assertEquals(stringService.pigLatin("pig"), "igpay");
-		assertEquals(stringService.pigLatin("glove"), "oveglay");
-		assertEquals(stringService.pigLatin("eat"), "eatway");
-		assertEquals(stringService.pigLatin("omelet"), "omeletway");
+		assertEquals("igpay", stringService.pigLatin("pig"));
+		assertEquals("oveglay", stringService.pigLatin("glove"));
+		assertEquals("eatway", stringService.pigLatin("eat"));
+		assertEquals("omeletway", stringService.pigLatin("omelet"));
 	}
 	
 }
