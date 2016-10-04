@@ -24,7 +24,7 @@ public class NumberController {
 	
 	@RequestMapping(value="pi", method = RequestMethod.GET)
 	public ResponseEntity<Response<String>> getPi(@RequestParam(defaultValue="5") int precision){
-		String pi = numberService.getPi(precision);
+		String pi = numberService.pi(precision);
 		
 		if(pi == null)
 			return ControllerUtils.makeResponseEntity(HttpStatus.BAD_REQUEST, null);
@@ -47,6 +47,15 @@ public class NumberController {
 		if(decimal == null)
 			return ControllerUtils.makeResponseEntity(HttpStatus.BAD_REQUEST, null);
 		return ControllerUtils.makeResponseEntity(HttpStatus.OK, decimal);
+	}
+	
+	@RequestMapping(value="converter/dec2bin/{decimal}", method = RequestMethod.GET)
+	public ResponseEntity<Response<String>> binaryToDecimal(@PathVariable int decimal){
+		String binary = numberService.decimalToBinary(decimal);
+		
+		if(binary == null)
+			return ControllerUtils.makeResponseEntity(HttpStatus.BAD_REQUEST, null);
+		return ControllerUtils.makeResponseEntity(HttpStatus.OK, binary);
 	}
 	
 }

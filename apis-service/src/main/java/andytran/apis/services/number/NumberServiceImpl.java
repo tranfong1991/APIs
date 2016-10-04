@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.List;
+import java.util.Stack;
 
 import org.springframework.stereotype.Service;
 
@@ -13,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class NumberServiceImpl implements NumberService{
 
 	@Override
-	public String getPi(int precision) {
+	public String pi(int precision) {
 		if(precision < 0)
 			return null;
 		if(precision > 15)
@@ -88,6 +91,29 @@ public class NumberServiceImpl implements NumberService{
 		}
 		
 		return decimal;
+	}
+
+	@Override
+	public String decimalToBinary(int decimal) {
+		if(decimal < 0)
+			return null;
+		
+		if(decimal == 0)
+			return "0";
+		
+		Deque<Integer> stack = new ArrayDeque<>();
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		while(decimal != 0){
+			stack.push(decimal % 2);
+			decimal /= 2;
+		}
+		
+		while(!stack.isEmpty()){
+			stringBuilder.append(stack.pop());
+		}
+		
+		return stringBuilder.toString();
 	}
 	
 }

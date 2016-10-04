@@ -17,12 +17,12 @@ public class NumberServiceImplTest {
 	private NumberServiceImpl numberService;
 	
 	@Test
-	public void testGetPi(){
-		assertEquals(null, numberService.getPi(-1));
-		assertEquals("3", numberService.getPi(0));
-		assertEquals("3.14159", numberService.getPi(5));
-		assertEquals("3.141592653589793", numberService.getPi(15));
-		assertEquals("3.141592653589793", numberService.getPi(17));
+	public void testPi(){
+		assertEquals(null, numberService.pi(-1));
+		assertEquals("3", numberService.pi(0));
+		assertEquals("3.14159", numberService.pi(5));
+		assertEquals("3.141592653589793", numberService.pi(15));
+		assertEquals("3.141592653589793", numberService.pi(17));
 	}
 	
 	@Test
@@ -41,6 +41,13 @@ public class NumberServiceImplTest {
 		assertEquals(new Integer(3), numberService.binaryToDecimal("011"));
 		assertEquals(new Integer(10), numberService.binaryToDecimal("1010"));
 		assertEquals(new Integer(100), numberService.binaryToDecimal("1100100"));
+	}
+	
+	@Test
+	public void testDecimalToBinary(){
+		assertEquals("0", numberService.decimalToBinary(0));
+		assertEquals("101", numberService.decimalToBinary(5));
+		assertEquals("1001010110", numberService.decimalToBinary(598));
 	}
 	
 }
