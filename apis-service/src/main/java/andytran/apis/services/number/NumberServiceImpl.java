@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -48,6 +50,44 @@ public class NumberServiceImpl implements NumberService{
 		
 		NumberFormat formatter = new DecimalFormat(pattern.toString());		
 		return formatter.format(pi.doubleValue());
+	}
+
+	@Override
+	public List<Integer> fibonacci(int limit) {
+		if(limit <= 0)
+			return null;
+		
+		List<Integer> series = new ArrayList<>();
+		series.add(1);
+		series.add(1);
+		
+		while(series.get(series.size() - 1) < limit){
+			int currentSize = series.size();
+			int nextNum = series.get(currentSize - 1) + series.get(currentSize - 2);
+			
+			if(nextNum > limit)
+				break;
+			series.add(nextNum);
+		}
+		
+		return series;
+	}
+
+	@Override
+	public Integer binaryToDecimal(String binary) {
+		if(binary == null || binary.isEmpty())
+			return null;
+		
+		int decimal = 0;
+		int power = 0;
+		for(int i = binary.length() - 1; i >=0; i--){
+			char c = binary.charAt(i);
+			int digit = Character.getNumericValue(c);
+			
+			decimal += digit * Math.pow(2, power++);
+		}
+		
+		return decimal;
 	}
 	
 }
