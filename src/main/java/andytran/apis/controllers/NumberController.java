@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import andytran.apis.models.Response;
+import andytran.apis.models.Unit;
+import andytran.apis.models.UnitFactory;
 import andytran.apis.services.number.NumberService;
 import andytran.apis.utils.ControllerUtils;
 
@@ -40,22 +42,15 @@ public class NumberController {
 		return ControllerUtils.makeResponseEntity(HttpStatus.OK, series);
 	}
 	
-	@RequestMapping(value="converter/bin2dec/{binary}", method = RequestMethod.GET)
-	public ResponseEntity<Response<Integer>> binaryToDecimal(@PathVariable String binary){
-		Integer decimal = numberService.binaryToDecimal(binary);
+	@RequestMapping(value="convert/{numStr}", method = RequestMethod.GET)
+	public ResponseEntity<Response<Unit>> convert(@PathVariable String numStr, 
+			@RequestParam(name = "from") String fromType, 
+			@RequestParam(name = "to") String toType){
+		Unit result = numberService.convert(numStr, fromType, toType);
 		
-		if(decimal == null)
+		if(result == null)
 			return ControllerUtils.makeResponseEntity(HttpStatus.BAD_REQUEST, null);
-		return ControllerUtils.makeResponseEntity(HttpStatus.OK, decimal);
-	}
-	
-	@RequestMapping(value="converter/dec2bin/{decimal}", method = RequestMethod.GET)
-	public ResponseEntity<Response<String>> binaryToDecimal(@PathVariable int decimal){
-		String binary = numberService.decimalToBinary(decimal);
-		
-		if(binary == null)
-			return ControllerUtils.makeResponseEntity(HttpStatus.BAD_REQUEST, null);
-		return ControllerUtils.makeResponseEntity(HttpStatus.OK, binary);
+		return ControllerUtils.makeResponseEntity(HttpStatus.OK, result);
 	}
 	
 }

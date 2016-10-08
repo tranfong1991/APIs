@@ -42,7 +42,7 @@ public class NumberControllerTest {
 	
 	@Test
 	public void testGetPiHappyPath() throws Exception{
-		when(numberService.getPi(anyInt())).thenReturn("3.14159");
+		when(numberService.pi(anyInt())).thenReturn("3.14159");
 		
 		mockMvc
 			.perform(get("/api/number/pi"))
@@ -53,7 +53,7 @@ public class NumberControllerTest {
 	
 	@Test
 	public void testGetPiSadPath() throws Exception{
-		when(numberService.getPi(anyInt())).thenReturn(null);
+		when(numberService.pi(anyInt())).thenReturn(null);
 		
 		mockMvc
 			.perform(get("/api/number/pi?precision=-1"))

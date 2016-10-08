@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import andytran.apis.models.Unit;
+
 @RunWith(SpringRunner.class)
 public class NumberServiceImplTest {
 	
@@ -38,16 +40,26 @@ public class NumberServiceImplTest {
 	
 	@Test
 	public void testBinaryToDecimal(){
-		assertEquals(new Integer(3), numberService.binaryToDecimal("011"));
-		assertEquals(new Integer(10), numberService.binaryToDecimal("1010"));
-		assertEquals(new Integer(100), numberService.binaryToDecimal("1100100"));
+		assertEquals("3", numberService.convert("011", "binary", "decimal").getNum());
+		assertEquals("100", numberService.convert("1100100", "binary", "decimal").getNum());
 	}
 	
 	@Test
 	public void testDecimalToBinary(){
-		assertEquals("0", numberService.decimalToBinary(0));
-		assertEquals("101", numberService.decimalToBinary(5));
-		assertEquals("1001010110", numberService.decimalToBinary(598));
+		assertEquals("0", numberService.convert("0", "decimal", "binary").getNum());
+		assertEquals("1001010110", numberService.convert("598", "decimal", "binary").getNum());
+	}
+	
+	@Test
+	public void testCelsiusToFahrenheit(){
+		assertEquals("32.0", numberService.convert("0", "celsius", "fahrenheit").getNum());
+		assertEquals("132.8", numberService.convert("56", "celsius", "fahrenheit").getNum());
+	}
+	
+	@Test
+	public void testFahrenheitToCelsius(){
+		assertEquals("0.0", numberService.convert("32", "fahrenheit", "celsius").getNum());
+		assertEquals("25.0", numberService.convert("77", "fahrenheit", "celsius").getNum());
 	}
 	
 }

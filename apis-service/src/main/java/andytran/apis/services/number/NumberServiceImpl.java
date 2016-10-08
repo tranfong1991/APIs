@@ -12,6 +12,9 @@ import java.util.Stack;
 
 import org.springframework.stereotype.Service;
 
+import andytran.apis.models.Unit;
+import andytran.apis.models.UnitFactory;
+
 @Service
 public class NumberServiceImpl implements NumberService{
 
@@ -77,43 +80,11 @@ public class NumberServiceImpl implements NumberService{
 	}
 
 	@Override
-	public Integer binaryToDecimal(String binary) {
-		if(binary == null || binary.isEmpty())
-			return null;
+	public Unit convert(String numStr, String fromType, String toType) {
+		Unit fromUnit = UnitFactory.makeUnit(fromType);
+		fromUnit.setNum(numStr);
 		
-		int decimal = 0;
-		int power = 0;
-		for(int i = binary.length() - 1; i >=0; i--){
-			char c = binary.charAt(i);
-			int digit = Character.getNumericValue(c);
-			
-			decimal += digit * Math.pow(2, power++);
-		}
-		
-		return decimal;
-	}
-
-	@Override
-	public String decimalToBinary(int decimal) {
-		if(decimal < 0)
-			return null;
-		
-		if(decimal == 0)
-			return "0";
-		
-		Deque<Integer> stack = new ArrayDeque<>();
-		StringBuilder stringBuilder = new StringBuilder();
-		
-		while(decimal != 0){
-			stack.push(decimal % 2);
-			decimal /= 2;
-		}
-		
-		while(!stack.isEmpty()){
-			stringBuilder.append(stack.pop());
-		}
-		
-		return stringBuilder.toString();
+		return fromUnit.convertTo(toType);
 	}
 	
 }
