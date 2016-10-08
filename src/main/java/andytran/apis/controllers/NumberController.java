@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import andytran.apis.models.Response;
 import andytran.apis.models.Unit;
 import andytran.apis.models.UnitFactory;
+import andytran.apis.models.UnitType;
 import andytran.apis.services.number.NumberService;
 import andytran.apis.utils.ControllerUtils;
 
@@ -44,8 +45,8 @@ public class NumberController {
 	
 	@RequestMapping(value="convert/{numStr}", method = RequestMethod.GET)
 	public ResponseEntity<Response<Unit>> convert(@PathVariable String numStr, 
-			@RequestParam(name = "from") String fromType, 
-			@RequestParam(name = "to") String toType){
+			@RequestParam(name = "from") UnitType fromType, 
+			@RequestParam(name = "to") UnitType toType){
 		Unit result = numberService.convert(numStr, fromType, toType);
 		
 		if(result == null)

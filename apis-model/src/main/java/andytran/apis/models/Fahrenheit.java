@@ -12,17 +12,26 @@ public class Fahrenheit extends Unit {
 	}
 
 	@Override
-	public Unit convertTo(String toType) {
+	public Unit convertTo(UnitType toType) {
 		switch(toType){
-		case "celsius":
+		case CELSIUS:
 			return toCelsius();
-		case "fahrenheit":
+		case FAHRENHEIT:
 			return this;
+		case KELVIN:
+			return toKelvin();
 		default:
 			return null;
 		}
 	}
 	
+	private Kelvin toKelvin() {
+		Double fahrenheit = Double.valueOf(num);
+		Double result = (fahrenheit + 459.67) / 1.8;
+		
+		return new Kelvin(result);
+	}
+
 	private Celsius toCelsius(){
 		Double fahrenheit = Double.valueOf(num);
 		Double result = (fahrenheit - 32) / 1.8;

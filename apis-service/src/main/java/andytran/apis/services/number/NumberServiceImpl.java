@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import andytran.apis.models.Unit;
 import andytran.apis.models.UnitFactory;
+import andytran.apis.models.UnitType;
 
 @Service
 public class NumberServiceImpl implements NumberService{
@@ -80,7 +81,7 @@ public class NumberServiceImpl implements NumberService{
 	}
 
 	@Override
-	public Unit convert(String numStr, String fromType, String toType) {
+	public Unit convert(String numStr, UnitType fromType, UnitType toType) {
 		Unit fromUnit = UnitFactory.makeUnit(fromType);
 		fromUnit.setNum(numStr);
 		

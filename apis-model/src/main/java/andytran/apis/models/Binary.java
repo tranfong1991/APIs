@@ -12,11 +12,11 @@ public class Binary extends Unit {
 	}
 	
 	@Override
-	public Unit convertTo(String toType){
+	public Unit convertTo(UnitType toType){
 		switch(toType){
-		case "decimal":
+		case DECIMAL:
 			return toDecimal();
-		case "binary":
+		case BINARY:
 			return this;
 		default:
 			return null;

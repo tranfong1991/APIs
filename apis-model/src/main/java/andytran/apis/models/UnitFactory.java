@@ -2,16 +2,18 @@ package andytran.apis.models;
 
 public final class UnitFactory {
 	
-	public static Unit makeUnit(String unitType){
+	public static Unit makeUnit(UnitType unitType){
 		switch(unitType){
-		case "binary":
+		case BINARY:
 			return new Binary();
-		case "decimal":
+		case DECIMAL:
 			return new Decimal();
-		case "celsius":
+		case CELSIUS:
 			return new Celsius();
-		case "fahrenheit":
+		case FAHRENHEIT:
 			return new Fahrenheit();
+		case KELVIN:
+			return new Kelvin();
 		default:
 			return null;
 		}

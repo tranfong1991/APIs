@@ -25,6 +25,6 @@ public abstract class Unit {
 		this.num = num;
 	}
 	
-	public abstract Unit convertTo(String toType);
+	public abstract Unit convertTo(UnitType toType);
 	
 }

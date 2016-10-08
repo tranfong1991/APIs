@@ -15,11 +15,11 @@ public class Decimal extends Unit {
 	}
 	
 	@Override
-	public Unit convertTo(String toType) {
+	public Unit convertTo(UnitType toType) {
 		switch(toType){
-		case "binary":
+		case BINARY:
 			return toBinary();
-		case "decimal":
+		case DECIMAL:
 			return this;
 		default:
 			return null;
