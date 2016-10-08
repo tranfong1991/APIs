@@ -3,7 +3,7 @@ package andytran.apis.models;
 public abstract class Unit {
 	
 	private String abbr;
-	protected String num;
+	protected String numStr;
 	
 	protected Unit(String abbr){
 		this.setAbbr(abbr);
@@ -17,12 +17,12 @@ public abstract class Unit {
 		this.abbr = abbr;
 	}
 	
-	public String getNum() {
-		return num;
+	public String getNumStr() {
+		return numStr;
 	}
 
-	public void setNum(String num){
-		this.num = num;
+	public void setNumStr(String numStr){
+		this.numStr = numStr;
 	}
 	
 	public abstract Unit convertTo(UnitType toType);

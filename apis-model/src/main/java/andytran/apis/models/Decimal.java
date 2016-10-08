@@ -11,7 +11,7 @@ public class Decimal extends Unit {
 
 	public Decimal(int decimal) {
 		this();
-		this.num = String.valueOf(decimal);
+		this.numStr = String.valueOf(decimal);
 	}
 	
 	@Override
@@ -27,7 +27,7 @@ public class Decimal extends Unit {
 	}
 	
 	private Binary toBinary(){
-		int decimal = Integer.valueOf(num);
+		int decimal = Integer.valueOf(numStr);
 		
 		if(decimal < 0)
 			return null;

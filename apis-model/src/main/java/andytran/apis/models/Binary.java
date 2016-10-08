@@ -8,7 +8,7 @@ public class Binary extends Unit {
 
 	public Binary(String binary) {
 		this();
-		this.num = binary;
+		this.numStr = binary;
 	}
 	
 	@Override
@@ -24,7 +24,7 @@ public class Binary extends Unit {
 	}
 
 	private Decimal toDecimal(){
-		String binary = (String)num;
+		String binary = (String)numStr;
 		if(binary == null || binary.isEmpty())
 			return null;
 		

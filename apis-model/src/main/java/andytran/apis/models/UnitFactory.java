@@ -2,7 +2,9 @@ package andytran.apis.models;
 
 public final class UnitFactory {
 	
-	public static Unit makeUnit(UnitType unitType){
+	private UnitFactory(){}
+	
+	public static Unit makeUnitInstance(UnitType unitType){
 		switch(unitType){
 		case BINARY:
 			return new Binary();
@@ -14,6 +16,10 @@ public final class UnitFactory {
 			return new Fahrenheit();
 		case KELVIN:
 			return new Kelvin();
+		case KILOGRAM:
+			return new Kilogram();
+		case POUND:
+			return new Pound();
 		default:
 			return null;
 		}

@@ -4,11 +4,8 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
 import java.util.List;
-import java.util.Stack;
 
 import org.springframework.stereotype.Service;
 
@@ -62,7 +59,7 @@ public class NumberServiceImpl implements NumberService{
 	@Override
 	public List<Integer> fibonacci(int limit) {
 		if(limit <= 0)
-			return null;
+			return new ArrayList<>();
 		
 		List<Integer> series = new ArrayList<>();
 		series.add(1);
@@ -82,8 +79,8 @@ public class NumberServiceImpl implements NumberService{
 
 	@Override
 	public Unit convert(String numStr, UnitType fromType, UnitType toType) {
-		Unit fromUnit = UnitFactory.makeUnit(fromType);
-		fromUnit.setNum(numStr);
+		Unit fromUnit = UnitFactory.makeUnitInstance(fromType);
+		fromUnit.setNumStr(numStr);
 		
 		return fromUnit.convertTo(toType);
 	}

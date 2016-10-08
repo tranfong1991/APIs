@@ -8,7 +8,7 @@ public class Fahrenheit extends Unit {
 	
 	public Fahrenheit(Double degree) {
 		this();
-		this.num = String.valueOf(degree);
+		this.numStr = String.valueOf(degree);
 	}
 
 	@Override
@@ -26,14 +26,14 @@ public class Fahrenheit extends Unit {
 	}
 	
 	private Kelvin toKelvin() {
-		Double fahrenheit = Double.valueOf(num);
+		Double fahrenheit = Double.valueOf(numStr);
 		Double result = (fahrenheit + 459.67) / 1.8;
 		
 		return new Kelvin(result);
 	}
 
 	private Celsius toCelsius(){
-		Double fahrenheit = Double.valueOf(num);
+		Double fahrenheit = Double.valueOf(numStr);
 		Double result = (fahrenheit - 32) / 1.8;
 		
 		return new Celsius(result);

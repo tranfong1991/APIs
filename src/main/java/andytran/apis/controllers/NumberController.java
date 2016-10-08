@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import andytran.apis.models.Response;
 import andytran.apis.models.Unit;
-import andytran.apis.models.UnitFactory;
 import andytran.apis.models.UnitType;
 import andytran.apis.services.number.NumberService;
 import andytran.apis.utils.ControllerUtils;
@@ -38,7 +37,7 @@ public class NumberController {
 	public ResponseEntity<Response<List<Integer>>> getFibonacci(@RequestParam(defaultValue="10") int limit){
 		List<Integer> series = numberService.fibonacci(limit);
 		
-		if(series == null)
+		if(series.isEmpty())
 			return ControllerUtils.makeResponseEntity(HttpStatus.BAD_REQUEST, null);
 		return ControllerUtils.makeResponseEntity(HttpStatus.OK, series);
 	}

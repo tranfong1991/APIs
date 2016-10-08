@@ -1,5 +1,9 @@
 package andytran.apis.utils;
 
-public class StringConstants {
-	public static String VOWELS = "aeiou";
+public final class StringConstants {
+	
+	public static final String VOWELS = "aeiou";
+	
+	private StringConstants(){}
+	
 }
