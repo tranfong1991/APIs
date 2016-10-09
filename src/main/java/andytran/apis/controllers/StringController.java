@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import andytran.apis.models.Response;
+import andytran.apis.models.LongestSubstringResponse;
+import andytran.apis.models.APIResponse;
 import andytran.apis.services.string.StringService;
 import andytran.apis.utils.ControllerUtils;
 
@@ -20,18 +21,36 @@ public class StringController {
 	private StringService stringService;
 	
 	@RequestMapping(value="reverse/{str}", method=RequestMethod.GET)
-	public ResponseEntity<Response<String>> reverse(@PathVariable String str){
-		return ControllerUtils.makeResponseEntity(HttpStatus.OK, stringService.reverse(str));
+	public ResponseEntity<APIResponse> reverse(@PathVariable String str){
+		String result = stringService.reverse(str);
+		if(result == null)
+			return ControllerUtils.makeErrorResponseEntity(HttpStatus.BAD_REQUEST, "bad request");
+		
+		return ControllerUtils.makeSuccessResponseEntity(HttpStatus.OK, result);
 	}
 	
 	@RequestMapping(value="palindrome/{str}", method=RequestMethod.GET)
-	public ResponseEntity<Response<Boolean>> isPalindrome(@PathVariable String str){
-		return ControllerUtils.makeResponseEntity(HttpStatus.OK, stringService.isPalindrome(str));
+	public ResponseEntity<APIResponse> isPalindrome(@PathVariable String str){
+		return ControllerUtils.makeSuccessResponseEntity(HttpStatus.OK, stringService.isPalindrome(str));
 	}
 	
 	@RequestMapping(value="piglatin/{str}", method=RequestMethod.GET)
-	public ResponseEntity<Response<String>> pigLatin(@PathVariable String str){
-		return ControllerUtils.makeResponseEntity(HttpStatus.OK, stringService.pigLatin(str));
+	public ResponseEntity<APIResponse> pigLatin(@PathVariable String str){
+		String result = stringService.pigLatin(str);
+		if(result == null)
+			return ControllerUtils.makeErrorResponseEntity(HttpStatus.BAD_REQUEST, "bad request");
+		
+		return ControllerUtils.makeSuccessResponseEntity(HttpStatus.OK, result);
+	}
+	
+	@RequestMapping(value="longestsubstring/{str}", method=RequestMethod.GET)
+	public ResponseEntity<APIResponse> longestSubstring(@PathVariable String str){
+		String longestSubstring = stringService.longestSubstring(str);
+		if(longestSubstring == null)
+			return ControllerUtils.makeErrorResponseEntity(HttpStatus.BAD_REQUEST, "bad request");
+		
+		LongestSubstringResponse result = new LongestSubstringResponse(longestSubstring);
+		return ControllerUtils.makeSuccessResponseEntity(HttpStatus.OK, result);
 	}
 	
 }

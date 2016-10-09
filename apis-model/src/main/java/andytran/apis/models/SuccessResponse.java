@@ -1,10 +1,10 @@
 package andytran.apis.models;
 
-public class Response<T> {
+public class SuccessResponse<T> implements APIResponse{
 	
 	private T result;
 		
-	public Response(T result){
+	public SuccessResponse(T result){
 		this.result = result;
 	}
 

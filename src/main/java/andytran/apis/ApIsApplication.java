@@ -3,12 +3,11 @@ package andytran.apis;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import andytran.apis.models.Binary;
-
 @SpringBootApplication
-public class ApIsApplication {
+public class APIsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApIsApplication.class, args);
+		SpringApplication.run(APIsApplication.class, args);
 	}
+	
 }

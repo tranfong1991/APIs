@@ -7,4 +7,11 @@
   </parent>
   <artifactId>apis-service</artifactId>
   <name>APIsService</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>andytran.apis</groupId>
+  		<artifactId>apis-model</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>

@@ -34,4 +34,13 @@ public class StringServiceImplTest {
 		assertEquals("omeletway", stringService.pigLatin("omelet"));
 	}
 	
+	@Test
+	public void testLongestSubstring(){
+		assertEquals(null, stringService.longestSubstring(null));
+		assertEquals("a", stringService.longestSubstring("a"));
+		assertEquals("abc", stringService.longestSubstring("abcabcbb"));
+		assertEquals("b", stringService.longestSubstring("bbbbb"));
+		assertEquals("EKSFORG", stringService.longestSubstring("GEEKSFORGEEKS"));
+	}
+	
 }
