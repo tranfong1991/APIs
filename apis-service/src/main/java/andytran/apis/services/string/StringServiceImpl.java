@@ -1,14 +1,37 @@
 package andytran.apis.services.string;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+import andytran.apis.models.Trie;
 import andytran.apis.utils.StringConstants;
+import andytran.apis.utils.StringUtils;
 
 @Service
 public class StringServiceImpl implements StringService {
+	
+	private Trie dictionary;
+	
+	@Autowired
+	private ResourceLoader resourceLoader;
+	
+	@PostConstruct
+	public void init() throws IOException{
+		Resource resource = resourceLoader.getResource("classpath:dictionary.txt");
+		this.dictionary = StringUtils.createTrieWithFile(resource.getFile());
+	}
 	
 	@Override
 	public String reverse(String str){
@@ -99,6 +122,46 @@ public class StringServiceImpl implements StringService {
 		}
 				
 		return curLongestSubstr;
+	}
+
+	@Override
+	public List<String> unscramble(String str) {
+		ArrayList<String> results = new ArrayList<>();
+		
+		if(str == null || str.isEmpty())
+			return results;
+		
+		List<String> qualifiedWords = StringUtils.searchTrie(str.charAt(0), str.charAt(str.length() - 1), dictionary);
+		if(qualifiedWords.isEmpty())
+			return results;
+		
+		qualifiedWords.forEach(word -> {
+			if(word.length() == 2){
+				results.add(word);
+				
+				//for foreach loop, return will skip the iteration
+				return;
+			}
+			
+			int strIndex = 1;
+			for(int i = 1; i < word.length() - 1; i++){
+				boolean hasChar = false;
+				for(; strIndex < str.length() - 1; strIndex++){
+					if(str.charAt(strIndex) == word.charAt(i)){
+						hasChar = true;
+						break;
+					}
+				}	
+				
+				if(!hasChar)
+					break;
+				
+				if(hasChar && i == word.length() - 2)
+					results.add(word);
+			}
+		});
+		
+		return results;
 	}
 	
 }

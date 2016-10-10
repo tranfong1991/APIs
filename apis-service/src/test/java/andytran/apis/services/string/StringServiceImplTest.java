@@ -1,17 +1,42 @@
 package andytran.apis.services.string;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+import org.powermock.modules.junit4.PowerMockRunnerDelegate;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringRunner.class)
+import andytran.apis.models.Trie;
+import andytran.apis.utils.StringUtils;
+
+@RunWith(PowerMockRunner.class)
+@PowerMockRunnerDelegate(SpringRunner.class)
+@PrepareForTest(StringUtils.class)
 public class StringServiceImplTest {
 	
 	@InjectMocks
 	private StringServiceImpl stringService;
+	
+	@Before
+	public void setup(){
+		PowerMockito.mockStatic(StringUtils.class);
+		MockitoAnnotations.initMocks(this);
+	}
 	
 	@Test
 	public void testReverse(){
@@ -41,6 +66,26 @@ public class StringServiceImplTest {
 		assertEquals("abc", stringService.longestSubstring("abcabcbb"));
 		assertEquals("b", stringService.longestSubstring("bbbbb"));
 		assertEquals("EKSFORG", stringService.longestSubstring("GEEKSFORGEEKS"));
+	}
+	
+	@Test
+	public void testUnscramble(){
+		List<String> dummy = new ArrayList<>();
+		dummy.add("quinn");
+		dummy.add("question");
+		dummy.add("queen");
+		dummy.add("qfsdfn");
+		
+		when(StringUtils.searchTrie(any(Character.class),
+				any(Character.class), 
+				any(Trie.class)))
+			.thenReturn(dummy);
+		
+		List<String> unscrambledWords = stringService.unscramble("qwertyuytresdftyuioknn");
+		assertEquals(true, unscrambledWords.contains(dummy.get(0)));
+		assertEquals(true, unscrambledWords.contains(dummy.get(1)));
+		assertEquals(true, unscrambledWords.contains(dummy.get(2)));
+		assertEquals(false, unscrambledWords.contains(dummy.get(3)));
 	}
 	
 }

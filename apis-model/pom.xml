@@ -7,4 +7,6 @@
   </parent>
   <artifactId>apis-model</artifactId>
   <name>APIsModel</name>
+  <groupId>andytran.apis</groupId>
+  <version>0.0.1-SNAPSHOT</version>
 </project>

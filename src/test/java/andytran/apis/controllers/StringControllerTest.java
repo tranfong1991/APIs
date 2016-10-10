@@ -8,6 +8,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,6 +83,20 @@ public class StringControllerTest {
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.result.length", is(resp.getLength())))
 			.andExpect(jsonPath("$.result.substring", is(resp.getSubstring())));
+	}
+	
+	@Test
+	public void testUnscramble() throws Exception{
+		List<String> dummy = new ArrayList<>();
+		dummy.add("question");
+		
+		when(stringService.unscramble(anyString())).thenReturn(dummy);
+		mockMvc
+			.perform(get("/api/string/unscramble/qwertyuytresdftyuioknn"))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result[0]", is(dummy.get(0))));
+		
 	}
 	
 }

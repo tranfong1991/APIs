@@ -49,7 +49,6 @@
 		</plugins>
 	</build>
 
-
 	<modules>
 		<module>apis-model</module>
 		<module>apis-service</module>

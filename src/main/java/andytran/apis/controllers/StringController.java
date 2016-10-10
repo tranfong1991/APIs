@@ -1,5 +1,7 @@
 package andytran.apis.controllers;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +53,15 @@ public class StringController {
 		
 		LongestSubstringResponse result = new LongestSubstringResponse(longestSubstring);
 		return ControllerUtils.makeSuccessResponseEntity(HttpStatus.OK, result);
+	}
+	
+	@RequestMapping(value="unscramble/{str}", method=RequestMethod.GET)
+	public ResponseEntity<APIResponse> unscramble(@PathVariable String str){
+		List<String> unscrambledWords = stringService.unscramble(str);
+		if(unscrambledWords.isEmpty())
+			return ControllerUtils.makeErrorResponseEntity(HttpStatus.BAD_REQUEST, "bad request");
+		
+		return ControllerUtils.makeSuccessResponseEntity(HttpStatus.OK, unscrambledWords);
 	}
 	
 }
