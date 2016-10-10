@@ -98,7 +98,7 @@ public class StringServiceImpl implements StringService {
 	}
 
 	@Override
-	public String longestSubstring(String str) {
+	public String longestNonRepeatingSubstring(String str) {
 		if(str == null)
 			return null;
 		if(str.isEmpty() || str.length() == 1)
@@ -131,6 +131,7 @@ public class StringServiceImpl implements StringService {
 		if(str == null || str.isEmpty())
 			return results;
 		
+		//get a list of words that start with str.charAt(0) and end with str.charAt(str.length() - 1)
 		List<String> qualifiedWords = StringUtils.searchTrie(str.charAt(0), str.charAt(str.length() - 1), dictionary);
 		if(qualifiedWords.isEmpty())
 			return results;
@@ -138,8 +139,6 @@ public class StringServiceImpl implements StringService {
 		qualifiedWords.forEach(word -> {
 			if(word.length() == 2){
 				results.add(word);
-				
-				//for foreach loop, return will skip the iteration
 				return;
 			}
 			

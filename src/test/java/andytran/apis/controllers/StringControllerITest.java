@@ -62,7 +62,7 @@ public class StringControllerITest {
 	}
 	
 	@Test
-	public void testLongestSubstringHappyPath() throws Exception{		
+	public void testLongestNonRepeatingSubstringHappyPath() throws Exception{		
 		mockMvc
 			.perform(get("/api/string/longestsubstring/abcabbbc"))
 			.andExpect(status().isOk())

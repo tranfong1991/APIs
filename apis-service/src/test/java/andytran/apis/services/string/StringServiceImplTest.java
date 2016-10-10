@@ -60,12 +60,12 @@ public class StringServiceImplTest {
 	}
 	
 	@Test
-	public void testLongestSubstring(){
-		assertEquals(null, stringService.longestSubstring(null));
-		assertEquals("a", stringService.longestSubstring("a"));
-		assertEquals("abc", stringService.longestSubstring("abcabcbb"));
-		assertEquals("b", stringService.longestSubstring("bbbbb"));
-		assertEquals("EKSFORG", stringService.longestSubstring("GEEKSFORGEEKS"));
+	public void testLongestNonRepeatingSubstring(){
+		assertEquals(null, stringService.longestNonRepeatingSubstring(null));
+		assertEquals("a", stringService.longestNonRepeatingSubstring("a"));
+		assertEquals("abc", stringService.longestNonRepeatingSubstring("abcabcbb"));
+		assertEquals("b", stringService.longestNonRepeatingSubstring("bbbbb"));
+		assertEquals("EKSFORG", stringService.longestNonRepeatingSubstring("GEEKSFORGEEKS"));
 	}
 	
 	@Test

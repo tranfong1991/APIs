@@ -45,9 +45,9 @@ public class StringController {
 		return ControllerUtils.makeSuccessResponseEntity(HttpStatus.OK, result);
 	}
 	
-	@RequestMapping(value="longestsubstring/{str}", method=RequestMethod.GET)
-	public ResponseEntity<APIResponse> longestSubstring(@PathVariable String str){
-		String longestSubstring = stringService.longestSubstring(str);
+	@RequestMapping(value="lnrs/{str}", method=RequestMethod.GET)
+	public ResponseEntity<APIResponse> longestNonRepeatingSubstring(@PathVariable String str){
+		String longestSubstring = stringService.longestNonRepeatingSubstring(str);
 		if(longestSubstring == null)
 			return ControllerUtils.makeErrorResponseEntity(HttpStatus.BAD_REQUEST, "bad request");
 		

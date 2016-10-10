@@ -73,10 +73,10 @@ public class StringControllerTest {
 	}
 	
 	@Test
-	public void testLongestSubstring() throws Exception{
+	public void testLongestNonRepeatingSubstring() throws Exception{
 		LongestSubstringResponse resp = new LongestSubstringResponse("abc");
 		
-		when(stringService.longestSubstring(anyString())).thenReturn(resp.getSubstring());
+		when(stringService.longestNonRepeatingSubstring(anyString())).thenReturn(resp.getSubstring());
 		mockMvc
 			.perform(get("/api/string/longestsubstring/abcabbbc"))
 			.andExpect(status().isOk())
