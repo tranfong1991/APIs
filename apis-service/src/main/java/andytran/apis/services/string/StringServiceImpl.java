@@ -1,20 +1,24 @@
 package andytran.apis.services.string;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
+import andytran.apis.models.Pair;
 import andytran.apis.models.Trie;
 import andytran.apis.utils.StringConstants;
 import andytran.apis.utils.StringUtils;
@@ -23,9 +27,14 @@ import andytran.apis.utils.StringUtils;
 public class StringServiceImpl implements StringService {
 	
 	private Trie dictionary;
+	private Map<Pair<Character, Character>, List<String>> wordListCache;
 	
 	@Autowired
 	private ResourceLoader resourceLoader;
+	
+	public StringServiceImpl(){
+		this.wordListCache = new HashMap<>();
+	}
 	
 	@PostConstruct
 	public void init() throws IOException{
@@ -125,14 +134,22 @@ public class StringServiceImpl implements StringService {
 	}
 
 	@Override
-	public List<String> unscramble(String str) {
-		ArrayList<String> results = new ArrayList<>();
-		
+	public List<String> unscramble(String str) {		
 		if(str == null || str.isEmpty())
-			return results;
+			return null;
+		
+		Pair<Character, Character> charPair = new Pair<>(str.charAt(0), str.charAt(str.length() - 1));
+		List<String> qualifiedWords;
 		
 		//get a list of words that start with str.charAt(0) and end with str.charAt(str.length() - 1)
-		List<String> qualifiedWords = StringUtils.searchTrie(str.charAt(0), str.charAt(str.length() - 1), dictionary);
+		if(wordListCache.containsKey(charPair))
+			qualifiedWords = wordListCache.get(charPair);
+		else {
+			qualifiedWords = StringUtils.searchTrie(str.charAt(0), str.charAt(str.length() - 1), dictionary);
+			wordListCache.put(charPair, qualifiedWords);
+		}
+		
+		ArrayList<String> results = new ArrayList<>();
 		if(qualifiedWords.isEmpty())
 			return results;
 		
@@ -161,6 +178,63 @@ public class StringServiceImpl implements StringService {
 		});
 		
 		return results;
+	}
+
+	@Override
+	public List<String> dankify(String str) {
+		if(str == null || str.isEmpty())
+			return null;
+		
+		str = str.replaceAll("\\s+","").toLowerCase();
+		
+		//for saving unique words
+		Map<String, Boolean> dankifiedWords = new HashMap<>();
+		Comparator<String> comparator = new Comparator<String>(){
+	        @Override
+	        public int compare(String o1, String o2){
+	            if(o1.length() > o2.length())
+	                return -1;
+
+	            if(o2.length() > o1.length())
+	                return 1;
+
+	            return 0;
+	        }
+	    };
+		
+		int curMaxLength = 0;
+		for(int i = 0; i < str.length(); i++){
+			for(int j = str.length() - 1; j > i; j--){
+				//if the length of the substring is smaller than the longest word, then no need to check
+				if(j - i + 1 < curMaxLength)
+					break;
+								
+				List<String> unscrambledWords = unscramble(str.substring(i, j + 1));
+				if(unscrambledWords.isEmpty())
+					continue;
+				
+				Collections.sort(unscrambledWords, comparator);
+				for(String word : unscrambledWords){
+					if(dankifiedWords.containsKey(word))
+						continue;
+					
+					if(word.length() >= curMaxLength){
+						dankifiedWords.put(word, true);
+						curMaxLength = word.length();
+					} else break;
+				}
+			}
+		}
+		
+		List<String> filteredDankifiedWords = new ArrayList<>();
+		for(String word : dankifiedWords.keySet()){
+			if(word.length() >= curMaxLength){
+				filteredDankifiedWords.add(word);
+				curMaxLength = word.length();
+			}
+		}
+		
+		return filteredDankifiedWords;
 	}
 	
 }

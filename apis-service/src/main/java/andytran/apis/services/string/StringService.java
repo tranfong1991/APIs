@@ -8,4 +8,5 @@ public interface StringService {
 	String pigLatin(String str);
 	String longestNonRepeatingSubstring(String str);
 	List<String> unscramble(String str);
+	List<String> dankify(String str);
 }

@@ -11,14 +11,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import andytran.apis.models.Trie;
@@ -86,6 +83,22 @@ public class StringServiceImplTest {
 		assertEquals(true, unscrambledWords.contains(dummy.get(1)));
 		assertEquals(true, unscrambledWords.contains(dummy.get(2)));
 		assertEquals(false, unscrambledWords.contains(dummy.get(3)));
+	}
+	
+	@Test
+	public void testDankify(){
+		List<String> dummy = new ArrayList<>();
+		dummy.add("donut");
+		dummy.add("dah");
+		
+		when(StringUtils.searchTrie(any(Character.class),
+				any(Character.class), 
+				any(Trie.class)))
+			.thenReturn(dummy);
+		
+		List<String> results = stringService.dankify("Donald Knuth");
+		assertEquals(true, results.contains(dummy.get(0)));
+		assertEquals(false, results.contains(dummy.get(1)));
 	}
 	
 }

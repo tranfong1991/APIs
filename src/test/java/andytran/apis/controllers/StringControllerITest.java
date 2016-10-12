@@ -64,11 +64,10 @@ public class StringControllerITest {
 	@Test
 	public void testLongestNonRepeatingSubstringHappyPath() throws Exception{		
 		mockMvc
-			.perform(get("/api/string/longestsubstring/abcabbbc"))
+			.perform(get("/api/string/lnrs/abcabbbc"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
-			.andExpect(jsonPath("$.result.length", is(3)))
-			.andExpect(jsonPath("$.result.substring", is("abc")));
+			.andExpect(jsonPath("$.result", is("abc")));
 	}
 	
 	@Test
@@ -78,6 +77,15 @@ public class StringControllerITest {
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.result", Matchers.containsInAnyOrder("quin", "queen", "question")));
+	}
+	
+	@Test
+	public void testDankifyHappyPath() throws Exception{
+		mockMvc
+			.perform(get("/api/string/dankify/donaldkruth"))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", Matchers.contains("donut")));
 	}
 	
 }
