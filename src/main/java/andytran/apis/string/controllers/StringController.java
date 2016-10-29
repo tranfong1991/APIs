@@ -8,15 +8,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import andytran.apis.shared.models.APIResponse;
 import andytran.apis.shared.utils.ControllerUtils;
 import andytran.apis.string.services.StringService;
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.Contact;
+import io.swagger.annotations.Info;
+import io.swagger.annotations.SwaggerDefinition;
 
 @RestController
 @RequestMapping(value="api/string")
+@Api(tags="String APIs", produces="application/json")
 public class StringController {
 	
 	@Autowired

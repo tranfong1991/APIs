@@ -16,9 +16,12 @@ import andytran.apis.number.models.UnitType;
 import andytran.apis.number.services.NumberService;
 import andytran.apis.shared.models.APIResponse;
 import andytran.apis.shared.utils.ControllerUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiParam;
 
 @RestController
 @RequestMapping(value="api/number")
+@Api(tags="Number APIs", produces="application/json")
 public class NumberController {
 	
 	@Autowired
@@ -43,7 +46,8 @@ public class NumberController {
 	}
 	
 	@RequestMapping(value="convert/{numStr}", method = RequestMethod.GET)
-	public ResponseEntity<APIResponse> convert(@PathVariable String numStr, 
+	public ResponseEntity<APIResponse> convert(@ApiParam(value="number")
+			@PathVariable String numStr, 
 			@RequestParam(name = "from") UnitType fromType, 
 			@RequestParam(name = "to") UnitType toType){
 		Unit result = numberService.convert(numStr, fromType, toType);
