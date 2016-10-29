@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -19,10 +21,10 @@ public final class StringUtils {
 	
 	private StringUtils(){}
 	
-	public static Trie createTrieWithFile(File file){
+	public static Trie createTrieWithFile(InputStream inputStream){
 		Trie trie = new Trie();
 		
-		try(BufferedReader reader = new BufferedReader(new FileReader(file))){
+		try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))){
 			String curLine;
 			while((curLine = reader.readLine()) != null){
 				trie.addWord(curLine);
