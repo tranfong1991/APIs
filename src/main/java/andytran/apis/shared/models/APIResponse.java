@@ -1,5 +1,5 @@
 package andytran.apis.shared.models;
 
-public interface APIResponse {
+public abstract class APIResponse {
 
 }

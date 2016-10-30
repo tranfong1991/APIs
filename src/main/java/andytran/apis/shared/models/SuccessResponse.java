@@ -1,6 +1,6 @@
 package andytran.apis.shared.models;
 
-public class SuccessResponse<T> implements APIResponse{
+public class SuccessResponse<T> extends APIResponse{
 	
 	private T result;
 		

@@ -1,6 +1,6 @@
 package andytran.apis.shared.models;
 
-public class ErrorResponse implements APIResponse {
+public class ErrorResponse extends APIResponse {
 	
 	private String error;
 	
