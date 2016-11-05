@@ -236,8 +236,53 @@ public class StringServiceImpl implements StringService {
 
 	@Override
 	public String longestPalindrome(String str) {
+		int longestLength = 0;
+		String longestPalindrome = null;
 		
-		return null;
+		for(int i = 0; i < str.length(); i++){
+			int start = i - 1;
+			int end = i + 1;
+			int curLength = 1;
+			
+			if(end == str.length())
+				break;
+			
+			if(start < 0){
+				longestPalindrome = String.valueOf(str.charAt(i));
+				longestLength = longestPalindrome.length();
+			} else {
+				while(start >= 0 && end < str.length()){
+					if(str.charAt(start) != str.charAt(end))
+						break;
+					
+					start--;
+					end++;
+					curLength += 2;
+				}
+				if(curLength > longestLength){
+					longestLength = curLength;
+					longestPalindrome = str.substring(start + 1, end);
+				}
+			}
+			
+			start = i;
+			end = i + 1;
+			curLength = 0;
+			
+			while(start >= 0 && end < str.length()){
+				if(str.charAt(start) != str.charAt(end))
+					break;
+				start--;
+				end++;
+				curLength += 2;
+			}
+			if(curLength > longestLength){
+				longestLength = curLength;
+				longestPalindrome = str.substring(start + 1, end);
+			}
+		}
+		
+		return longestPalindrome;
 	}
 	
 }
