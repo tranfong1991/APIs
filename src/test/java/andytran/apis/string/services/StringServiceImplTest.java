@@ -104,8 +104,7 @@ public class StringServiceImplTest {
 	@Test
 	public void testLongestPalindrome(){
 		assertEquals("elle", stringService.longestPalindrome("hellen"));
-		assertEquals("anana", stringService.longestPalindrome("banana"));
-		assertEquals("aabbaa", stringService.longestPalindrome("aabbaababa"));
+		assertEquals("aabbaa", stringService.longestPalindrome("aabbaabab"));
 	}
 	
 }
