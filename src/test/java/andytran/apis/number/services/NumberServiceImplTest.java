@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import andytran.apis.number.models.UnitType;
 
-
 @RunWith(SpringRunner.class)
 public class NumberServiceImplTest {
 	

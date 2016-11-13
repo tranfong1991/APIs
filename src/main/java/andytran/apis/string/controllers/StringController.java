@@ -3,7 +3,6 @@ package andytran.apis.string.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import andytran.apis.shared.exceptions.BadRequestException;
 import andytran.apis.shared.models.APIResponse;
-import andytran.apis.shared.models.SuccessResponse;
 import andytran.apis.shared.utils.ControllerUtils;
 import andytran.apis.string.services.StringService;
 import io.swagger.annotations.Api;
