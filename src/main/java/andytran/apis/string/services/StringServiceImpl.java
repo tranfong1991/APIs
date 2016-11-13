@@ -16,6 +16,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
 import andytran.apis.number.models.Pair;
+import andytran.apis.string.models.Range;
 import andytran.apis.string.models.Trie;
 import andytran.apis.string.utils.StringConstants;
 import andytran.apis.string.utils.StringUtils;
@@ -150,6 +151,8 @@ public class StringServiceImpl implements StringService {
 		if(qualifiedWords.isEmpty())
 			return results;
 		
+		//for each qualified word, go through all of its in-between characters 
+		//and check if the in-between substring of the original string has all of them
 		qualifiedWords.forEach(word -> {
 			if(word.length() == 2){
 				results.add(word);
@@ -233,56 +236,78 @@ public class StringServiceImpl implements StringService {
 		
 		return filteredDankifiedWords;
 	}
-
+	
 	@Override
-	public String longestPalindrome(String str) {
-		int longestLength = 0;
-		String longestPalindrome = null;
+	public String longestPalindrome(String str){
+		if(str == null || str.length() <= 1)
+			return str;
 		
-		for(int i = 0; i < str.length(); i++){
-			int start = i - 1;
-			int end = i + 1;
-			int curLength = 1;
-			
-			if(end == str.length())
-				break;
-			
-			if(start < 0){
-				longestPalindrome = String.valueOf(str.charAt(i));
-				longestLength = longestPalindrome.length();
-			} else {
-				while(start >= 0 && end < str.length()){
-					if(str.charAt(start) != str.charAt(end))
-						break;
-					
-					start--;
-					end++;
-					curLength += 2;
+		String myStr = StringUtils.insertSpecialCharBetweenChars('$', str);
+		Range longestPalindromeRange = new Range(0, 0);
+		Range currentCenterRange = new Range(0, 0);
+		int currentCenterIndex = 0;
+		int[] lengthArray = new int[myStr.length()];
+		
+		//the lengths of the palindrome for the first and last character are always 1
+		lengthArray[0] = 1;
+		lengthArray[myStr.length() - 1] = 1;
+		
+		for(int i = 1; i < myStr.length() - 1; i++){	
+			//right edge out of range
+			if(i > currentCenterRange.getEnd())
+				currentCenterIndex = i;
+			else {
+				int mirrorIndex = 2 * currentCenterIndex - i;
+				int mirrorLeftEdgeIndex = mirrorIndex - lengthArray[mirrorIndex] / 2;
+				
+				//left edge expands beyond left boundary
+				if(mirrorLeftEdgeIndex < currentCenterRange.getStart()){
+					lengthArray[i] = 2 * (currentCenterRange.getEnd() - i) + 1;
+					continue;
 				}
-				if(curLength > longestLength){
-					longestLength = curLength;
-					longestPalindrome = str.substring(start + 1, end);
+				//left edge in front of left boundary
+				else if(mirrorLeftEdgeIndex > currentCenterRange.getStart()){
+					lengthArray[i] = lengthArray[mirrorIndex];
+					continue;
+				}
+				else {
+					lengthArray[i] = lengthArray[mirrorIndex];	
+					currentCenterIndex = i;
 				}
 			}
 			
-			start = i;
-			end = i + 1;
-			curLength = 0;
-			
-			while(start >= 0 && end < str.length()){
-				if(str.charAt(start) != str.charAt(end))
+			int start = i - lengthArray[i] / 2 - 1;
+			int end = i + lengthArray[i] / 2 + 1;
+			while(start >= 0 && end < myStr.length()){
+				if(myStr.charAt(start) != myStr.charAt(end)){
+					start++;
+					end--;
+					break;
+				}
+				
+				if(start == 0 || end == myStr.length() - 1)
 					break;
 				start--;
 				end++;
-				curLength += 2;
 			}
-			if(curLength > longestLength){
-				longestLength = curLength;
-				longestPalindrome = str.substring(start + 1, end);
+			
+			currentCenterRange.setStart(start);
+			currentCenterRange.setEnd(end);
+			lengthArray[i] = currentCenterRange.length();
+			
+			if(lengthArray[i] > longestPalindromeRange.length()){
+				longestPalindromeRange.setStart(start);
+				longestPalindromeRange.setEnd(end);
 			}
+			
+			if(end == myStr.length() - 1)
+				break;
 		}
 		
-		return longestPalindrome;
+		String longestPalindrome = myStr.substring(longestPalindromeRange.getStart(), 
+				longestPalindromeRange.getEnd() + 1);
+		
+		return StringUtils.removeSpecialCharBetweenChars(longestPalindrome);
 	}
 	
 }

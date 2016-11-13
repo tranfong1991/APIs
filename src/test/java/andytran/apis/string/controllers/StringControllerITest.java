@@ -93,10 +93,10 @@ public class StringControllerITest {
 	@Test
 	public void testLongestPalindromeHappyPath() throws Exception{
 		mockMvc
-			.perform(get(BASE_STRING_API_URL + "/longestpalindrome/hellen"))
+			.perform(get(BASE_STRING_API_URL + "/longestpalindrome/abaxabaxabb"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
-			.andExpect(jsonPath("$.result", is("elle")));
+			.andExpect(jsonPath("$.result", is("baxabaxab")));
 	}
 	
 }

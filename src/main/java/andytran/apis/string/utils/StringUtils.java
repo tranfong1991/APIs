@@ -1,9 +1,7 @@
 package andytran.apis.string.utils;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -15,7 +13,6 @@ import java.util.Set;
 
 import andytran.apis.string.models.Trie;
 import andytran.apis.string.models.TrieNode;
-
 
 public final class StringUtils {
 	
@@ -67,6 +64,31 @@ public final class StringUtils {
 		}
 		
 		return qualifiedWords;
+	}
+	
+	public static String insertSpecialCharBetweenChars(Character specialChar, String str){
+		StringBuilder builder = new StringBuilder();
+		builder.append(specialChar);
+		
+		for(int i = 0; i < str.length(); i++){
+			char currentChar = str.charAt(i);
+			builder.append(currentChar)
+				.append(specialChar);
+		}
+		
+		return builder.toString();
+	}
+	
+	public static String removeSpecialCharBetweenChars(String str){
+		StringBuilder builder = new StringBuilder();
+		
+		for(int i = 0; i < str.length(); i++){
+			char currentChar = str.charAt(i);
+			if(i % 2 != 0)
+				builder.append(currentChar);
+		}
+		
+		return builder.toString();
 	}
 	
 }
