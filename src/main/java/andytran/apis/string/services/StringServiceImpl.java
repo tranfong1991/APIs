@@ -37,7 +37,7 @@ public class StringServiceImpl implements StringService {
 	@PostConstruct
 	public void init() throws IOException{
 		Resource resource = resourceLoader.getResource("classpath:dictionary.txt");
-		this.dictionary = StringUtils.createTrieWithFile(resource.getInputStream());
+		this.dictionary = StringUtils.createTrieFromFile(resource.getInputStream());
 	}
 	
 	@Override

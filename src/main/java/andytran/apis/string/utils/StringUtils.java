@@ -18,7 +18,7 @@ public final class StringUtils {
 	
 	private StringUtils(){}
 	
-	public static Trie createTrieWithFile(InputStream inputStream){
+	public static Trie createTrieFromFile(InputStream inputStream){
 		Trie trie = new Trie();
 		
 		try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))){
