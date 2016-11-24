@@ -15,7 +15,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 
-import andytran.apis.number.models.Pair;
+import andytran.apis.string.models.Pair;
 import andytran.apis.string.models.Range;
 import andytran.apis.string.models.Trie;
 import andytran.apis.string.utils.StringConstants;

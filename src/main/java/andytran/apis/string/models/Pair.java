@@ -1,4 +1,4 @@
-package andytran.apis.number.models;
+package andytran.apis.string.models;
 
 public class Pair<T, K> {
 	
