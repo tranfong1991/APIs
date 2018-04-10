@@ -81,4 +81,9 @@ public class StringController {
 		return ControllerUtils.makeSuccessResponse(result);
 	}
 	
+	@RequestMapping(value = "isvalidparenthesis/{str}", method = RequestMethod.GET)
+	public APIResponse isValidParentheses(@PathVariable String str){
+		return ControllerUtils.makeSuccessResponse(stringService.isValidParentheses(str));
+	}
+	
 }

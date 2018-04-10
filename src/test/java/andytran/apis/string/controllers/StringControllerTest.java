@@ -120,4 +120,14 @@ public class StringControllerTest {
 			.andExpect(jsonPath("$.result", is("elle")));
 	}
 	
+	@Test
+	public void testIsValidParentheses() throws Exception{
+		when(stringService.isValidParentheses(anyString())).thenReturn(false);
+		mockMvc
+			.perform(get(BASE_STRING_API_URL + "/isvalidparenthesis/(()[)"))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(false)));
+	}
+	
 }

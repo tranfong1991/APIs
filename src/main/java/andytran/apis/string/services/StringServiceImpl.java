@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 import javax.annotation.PostConstruct;
 
@@ -308,6 +309,45 @@ public class StringServiceImpl implements StringService {
 				longestPalindromeRange.getEnd() + 1);
 		
 		return StringUtils.removeSpecialCharBetweenChars(longestPalindrome);
+	}
+	
+	@Override
+	public Boolean isValidParentheses(String str){
+		if(str == null || str.isEmpty()){
+			return false;
+		}
+		
+		Stack<Character> stack = new Stack<>();
+		for(int i = 0; i < str.length(); i++){
+			if(stack.isEmpty()){
+				char c = str.charAt(i);
+				if(c == ')' || c == ']' || c == '}'){
+					return false;
+				}
+				stack.push(str.charAt(i));
+			} else {
+				char top = stack.peek();
+				if(getCounterpart(top).equals(str.charAt(i))){
+					stack.pop();
+				} else {
+					stack.push(str.charAt(i));
+				}
+			}
+		}
+		return stack.empty();
+	}
+	
+	private Character getCounterpart(char c){
+		switch(c){
+		case '(':
+			return ')';
+		case '[':
+			return ']';
+		case '{':
+			return '}';
+		default:
+			return null;
+		}
 	}
 	
 }

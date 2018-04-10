@@ -10,4 +10,5 @@ public interface StringService {
 	List<String> unscramble(String str);
 	List<String> dankify(String str);
 	String longestPalindrome(String str);
+	Boolean isValidParentheses(String str);
 }

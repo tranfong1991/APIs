@@ -113,4 +113,11 @@ public class StringServiceImplTest {
 		assertEquals("elle", stringService.longestPalindrome("hellen"));
 	}
 	
+	@Test
+	public void testIsValidParentheses(){
+		assertEquals(true, stringService.isValidParentheses("({}()[])"));
+		assertEquals(false, stringService.isValidParentheses("(()))"));
+		assertEquals(false, stringService.isValidParentheses(")(){}[]"));
+	}
+	
 }

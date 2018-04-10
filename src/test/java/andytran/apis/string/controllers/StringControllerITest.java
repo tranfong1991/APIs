@@ -1,6 +1,8 @@
 package andytran.apis.string.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -97,6 +99,15 @@ public class StringControllerITest {
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.result", is("baxabaxab")));
+	}
+	
+	@Test
+	public void testIsValidParentheses() throws Exception{
+		mockMvc
+			.perform(get(BASE_STRING_API_URL + "/isvalidparenthesis/(()[)"))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(false)));
 	}
 	
 }
