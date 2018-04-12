@@ -23,6 +23,8 @@ import andytran.apis.shared.utils.TestUtils;
 
 @RunWith(SpringRunner.class)
 public class ArrayControllerTest {
+	
+	private static final String BASE_ARRAY_API_URL = "/api/array";
 
 	private MockMvc mockMvc;
 	
@@ -42,7 +44,7 @@ public class ArrayControllerTest {
 	public void testGetMaxWaterVolume() throws Exception {
 		when(arrayService.getMaxWaterVolume(anyList())).thenReturn(12);
 		mockMvc
-			.perform(get("/api/array/maxwatervolume").param("heights", new String[]{"1", "4", "2", "3", "1", "3"}))
+			.perform(get(BASE_ARRAY_API_URL + "/maxwatervolume").param("heights", new String[]{"1", "4", "2", "3", "1", "3"}))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.result", is(12)));	
