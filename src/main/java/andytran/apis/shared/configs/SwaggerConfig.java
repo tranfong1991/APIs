@@ -4,6 +4,8 @@ package andytran.apis.shared.configs;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.google.common.base.Predicates;
+
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -24,7 +26,10 @@ public class SwaggerConfig {
           .apis(RequestHandlerSelectors.any())              
           .paths(PathSelectors.any())
           .build()
-          .apiInfo(apiInfo());
+          .apiInfo(apiInfo())
+          .select() 
+          .apis(Predicates.not(RequestHandlerSelectors.basePackage("org.springframework.boot")))
+          .build();
     }
     
     private ApiInfo apiInfo() {
