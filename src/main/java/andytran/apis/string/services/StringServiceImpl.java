@@ -350,4 +350,30 @@ public class StringServiceImpl implements StringService {
 		}
 	}
 	
+	@Override
+	public List<String> generateParenthesis(int n){
+		List<String> results = null;
+		if(n > 0){
+			results = new ArrayList<>();
+			char[] str = new char[n * 2];
+			
+			generateParenthesisRecursive(results, str, 0, n, 0, 0);
+		}
+		return results;
+	}
+	
+	private void generateParenthesisRecursive(List<String> results, char[] str, int pos, int n, int open, int close){
+		if(close == n){
+			results.add(new String(str));
+		} else {
+			if(open > close){
+				str[pos] = ')';
+				generateParenthesisRecursive(results, str, pos + 1, n, open, close + 1);
+			}
+			if(open < n){
+				str[pos] = '(';
+				generateParenthesisRecursive(results, str, pos + 1, n, open + 1, close);
+			}
+		}
+	}
 }

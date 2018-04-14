@@ -86,4 +86,9 @@ public class StringController {
 		return ControllerUtils.makeSuccessResponse(stringService.isValidParentheses(str));
 	}
 	
+	@RequestMapping(value = "generateparenthesis/{n}", method = RequestMethod.GET)
+	public APIResponse generateParenthesis(@PathVariable int n){
+		return ControllerUtils.makeSuccessResponse(stringService.generateParenthesis(n));
+	}
+	
 }

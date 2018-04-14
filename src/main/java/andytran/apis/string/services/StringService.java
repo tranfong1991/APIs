@@ -11,4 +11,5 @@ public interface StringService {
 	List<String> dankify(String str);
 	String longestPalindrome(String str);
 	Boolean isValidParentheses(String str);
+	List<String> generateParenthesis(int n);
 }

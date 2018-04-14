@@ -1,12 +1,16 @@
 package andytran.apis.string.controllers;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
@@ -108,6 +112,19 @@ public class StringControllerITest {
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.result", is(false)));
+	}
+	
+	@Test
+	public void testGenerateParenthesis() throws Exception{
+		List<String> list = new ArrayList<>();
+		list.add("()()");
+		list.add("(())");
+		
+		mockMvc
+			.perform(get(BASE_STRING_API_URL + "/generateparenthesis/2"))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(list)));
 	}
 	
 }

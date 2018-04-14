@@ -120,4 +120,19 @@ public class StringServiceImplTest {
 		assertEquals(false, stringService.isValidParentheses(")(){}[]"));
 	}
 	
+	@Test
+	public void testGenerateParenthesis(){
+		List<String> expected = new ArrayList<>();
+		expected.add("((()))");
+		expected.add("(()())");
+		expected.add("(())()");
+		expected.add("()(())");
+		expected.add("()()()");
+		
+		List<String> results = stringService.generateParenthesis(3);
+		for(String str : expected){
+			assertEquals(true, results.contains(str));
+		}
+	}
+	
 }
