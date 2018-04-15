@@ -29,5 +29,16 @@ public class ArrayServiceImplTest {
 		assertEquals(12, arrayService.getMaxWaterVolume(heights));
 		assertEquals(0, arrayService.getMaxWaterVolume(new ArrayList<>()));
 	}
+	
+	@Test
+	public void testNextPermutation() {
+		int[] nums = new int[]{1, 8, 2, 0};
+		int[] expected = new int[]{2, 0, 1, 8};
+		
+		arrayService.nextPermutation(nums);
+		for(int i = 0; i < expected.length; i++){
+			assertEquals(expected[i], nums[i]);
+		}
+	}
 
 }

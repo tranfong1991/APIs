@@ -26,4 +26,15 @@ public class ArrayController {
 		return ControllerUtils.makeSuccessResponse(arrayService.getMaxWaterVolume(heights));
 	}
 	
+	@RequestMapping(value = "nextpermutation", method = RequestMethod.GET)
+	public APIResponse nextPermutation(@RequestParam List<Integer> nums){
+		int[] n = new int[nums.size()];
+		for(int i = 0; i < nums.size(); i++){
+			n[i] = nums.get(i);
+		}
+		
+		arrayService.nextPermutation(n);
+		return ControllerUtils.makeSuccessResponse(n);
+	}
+	
 }

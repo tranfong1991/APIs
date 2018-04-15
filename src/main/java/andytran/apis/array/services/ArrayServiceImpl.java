@@ -1,5 +1,6 @@
 package andytran.apis.array.services;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -29,6 +30,34 @@ public class ArrayServiceImpl implements ArrayService {
 			}
 		}
 		return maxVolume;
+	}
+
+	@Override
+	public void nextPermutation(int[] nums) {
+		int replacableIndex = -1;
+        for(int i = 0; i < nums.length; i++){
+            if(i + 1 < nums.length){
+                if(nums[i] < nums[i+1]){
+                    replacableIndex = i;
+                }
+            }
+        }
+        
+        if(replacableIndex < 0){
+            Arrays.sort(nums);
+            return;
+        }
+        
+        for(int i = nums.length - 1; i > replacableIndex; i--){
+            if(nums[i] > nums[replacableIndex]){
+                int temp = nums[replacableIndex];
+                nums[replacableIndex] = nums[i];
+                nums[i] = temp;
+                
+                Arrays.sort(nums, replacableIndex + 1, nums.length);
+                return;
+            }
+        }
 	}
 
 }

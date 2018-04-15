@@ -4,4 +4,5 @@ import java.util.List;
 
 public interface ArrayService {
 	int getMaxWaterVolume(List<Integer> heights);
+	void nextPermutation(int[] nums);
 }
