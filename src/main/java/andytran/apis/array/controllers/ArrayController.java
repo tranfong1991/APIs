@@ -41,9 +41,10 @@ public class ArrayController {
 	@RequestMapping(value = "rotatematrix/{dimension}", method = RequestMethod.GET)
 	public APIResponse rotateMatrix(@PathVariable int dimension, @RequestParam List<Integer> matrix){
 		int[][] m = new int[dimension][dimension];
+		int currentIndex = 0;
 		for(int row = 0; row < m.length; row++){
 			for(int col = 0; col < m[row].length; col++){
-				m[row][col] = matrix.get(2*row + col);
+				m[row][col] = matrix.get(currentIndex++);
 			}
 		}
 		arrayService.rotateMatrix(m);
