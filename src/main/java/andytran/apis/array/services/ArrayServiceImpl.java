@@ -59,5 +59,40 @@ public class ArrayServiceImpl implements ArrayService {
             }
         }
 	}
+	
+	@Override
+	public void rotateMatrix(int[][] matrix){
+		int n = matrix.length;
+        double layers = Math.ceil(n / 2);
+        
+        for(int layer = 0; layer < layers; layer++){
+            int[] save = new int[n - layer - 1];
+            
+            //top
+            for(int col = layer; col < n - layer - 1; col++){
+                save[col] = matrix[layer][col];
+                matrix[layer][col] = matrix[n - col - 1][layer];
+            }
+            
+            //right
+            for(int row = layer; row < n - layer - 1; row++){
+                int temp = matrix[row][n - layer - 1];
+                matrix[row][n - layer - 1] = save[row];
+                save[row] = temp;
+            }
+            
+            //bottom
+            for(int col = n - layer - 1; col > layer; col--){
+                int temp = matrix[n - layer - 1][col];
+                matrix[n - layer - 1][col] = save[n - col - 1];
+                save[n - col - 1] = temp;
+            }
+            
+            //left
+            for(int row = n - layer - 1; row > layer; row--){
+                matrix[row][layer] = save[n - row - 1];
+            }
+        }
+	}
 
 }

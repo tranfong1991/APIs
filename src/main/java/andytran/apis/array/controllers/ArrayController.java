@@ -3,6 +3,7 @@ package andytran.apis.array.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,18 @@ public class ArrayController {
 		
 		arrayService.nextPermutation(n);
 		return ControllerUtils.makeSuccessResponse(n);
+	}
+	
+	@RequestMapping(value = "rotatematrix/{dimension}", method = RequestMethod.GET)
+	public APIResponse rotateMatrix(@PathVariable int dimension, @RequestParam List<Integer> matrix){
+		int[][] m = new int[dimension][dimension];
+		for(int row = 0; row < m.length; row++){
+			for(int col = 0; col < m[row].length; col++){
+				m[row][col] = matrix.get(2*row + col);
+			}
+		}
+		arrayService.rotateMatrix(m);
+		return ControllerUtils.makeSuccessResponse(m);
 	}
 	
 }

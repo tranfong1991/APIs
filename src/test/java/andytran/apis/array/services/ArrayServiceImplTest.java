@@ -41,4 +41,24 @@ public class ArrayServiceImplTest {
 		}
 	}
 
+	@Test
+	public void testRotateMatrix() {
+		int[][] matrix = new int[][]{
+			{1,2},
+			{3,4}
+		};
+		
+		int[][] expected = new int[][]{
+			{3,1},
+			{4,2}
+		};
+		
+		arrayService.rotateMatrix(matrix);
+		for(int row = 0; row < expected.length; row++){
+			for(int col = 0; col < expected[row].length; col++){
+				assertEquals(expected[row][col], matrix[row][col]);
+			}
+		}
+	}
+	
 }

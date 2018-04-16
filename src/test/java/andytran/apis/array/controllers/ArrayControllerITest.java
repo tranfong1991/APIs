@@ -64,5 +64,28 @@ public class ArrayControllerITest {
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.result", is(expected)));
 	}
+	
+	@Test
+	public void testRotateMatrix() throws Exception {
+		String[] matrix = new String[]{"1","2","3","4"};
+		
+		List<Integer> row1 = new ArrayList<>();
+		row1.add(3);
+		row1.add(1);
+		
+		List<Integer> row2 = new ArrayList<>();
+		row2.add(4);
+		row2.add(2);
+		
+		List<List<Integer>> expected = new ArrayList<>();
+		expected.add(row1);
+		expected.add(row2);
+		
+		mockMvc
+			.perform(get(BASE_ARRAY_API_URL + "/rotatematrix/2").param("matrix", matrix))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(expected)));
+	}
 
 }
