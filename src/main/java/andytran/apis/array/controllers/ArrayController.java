@@ -23,32 +23,36 @@ public class ArrayController {
 	private ArrayService arrayService;
 	
 	@RequestMapping(value = "maxwatervolume", method = RequestMethod.GET)
-	public APIResponse getMaxWaterVolume(@RequestParam List<Integer> heights){
-		return ControllerUtils.makeSuccessResponse(arrayService.getMaxWaterVolume(heights));
+	public APIResponse getMaxWaterVolume(@RequestParam int[] heights){
+		return ControllerUtils.makeSuccessResponse(arrayService.maxWaterVolume(heights));
 	}
 	
 	@RequestMapping(value = "nextpermutation", method = RequestMethod.GET)
-	public APIResponse nextPermutation(@RequestParam List<Integer> nums){
-		int[] n = new int[nums.size()];
-		for(int i = 0; i < nums.size(); i++){
-			n[i] = nums.get(i);
-		}
-		
-		arrayService.nextPermutation(n);
-		return ControllerUtils.makeSuccessResponse(n);
+	public APIResponse nextPermutation(@RequestParam int[] nums){
+		arrayService.nextPermutation(nums);
+		return ControllerUtils.makeSuccessResponse(nums);
 	}
 	
 	@RequestMapping(value = "rotatematrix/{dimension}", method = RequestMethod.GET)
-	public APIResponse rotateMatrix(@PathVariable int dimension, @RequestParam List<Integer> matrix){
+	public APIResponse rotateMatrix(@PathVariable int dimension, @RequestParam int[] matrix){
 		int[][] m = new int[dimension][dimension];
 		int currentIndex = 0;
 		for(int row = 0; row < m.length; row++){
 			for(int col = 0; col < m[row].length; col++){
-				m[row][col] = matrix.get(currentIndex++);
+				m[row][col] = matrix[currentIndex++];
 			}
 		}
 		arrayService.rotateMatrix(m);
 		return ControllerUtils.makeSuccessResponse(m);
 	}
 	
+	@RequestMapping(value = "maxsubarray", method = RequestMethod.GET)
+	public APIResponse maxSubArray(@RequestParam int[] nums){
+		return ControllerUtils.makeSuccessResponse(arrayService.maxSubArray(nums));
+	}
+	
+	@RequestMapping(value = "jumpgame", method = RequestMethod.GET)
+	public APIResponse canJump(@RequestParam int[] nums){
+		return ControllerUtils.makeSuccessResponse(arrayService.canJump(nums));
+	}
 }

@@ -47,7 +47,7 @@ public class ArrayControllerTest {
 	
 	@Test
 	public void testGetMaxWaterVolume() throws Exception {
-		when(arrayService.getMaxWaterVolume(anyList())).thenReturn(12);
+		when(arrayService.maxWaterVolume(any(int[].class))).thenReturn(12);
 		mockMvc
 			.perform(get(BASE_ARRAY_API_URL + "/maxwatervolume").param("heights", new String[]{"1", "4", "2", "3", "1", "3"}))
 			.andExpect(status().isOk())
@@ -96,4 +96,23 @@ public class ArrayControllerTest {
 			.andExpect(jsonPath("$.result", is(expected)));
 	}
 	
+	@Test
+	public void testMaxSubArray() throws Exception {
+		when(arrayService.maxSubArray(any(int[].class))).thenReturn(6);
+		mockMvc
+			.perform(get(BASE_ARRAY_API_URL + "/maxsubarray").param("nums", new String[]{"1", "2", "3"}))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(6)));
+	}
+	
+	@Test
+	public void testCanJump() throws Exception {
+		when(arrayService.canJump(any(int[].class))).thenReturn(true);
+		mockMvc
+			.perform(get(BASE_ARRAY_API_URL + "/jumpgame").param("nums", new String[]{"1", "2", "3"}))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(true)));
+	}
 }

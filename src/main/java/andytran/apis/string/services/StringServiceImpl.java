@@ -239,6 +239,7 @@ public class StringServiceImpl implements StringService {
 	}
 	
 	@Override
+	//Manacher's Algorithm
 	public String longestPalindrome(String str){
 		if(str == null || str.length() <= 1)
 			return str;

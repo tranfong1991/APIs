@@ -1,9 +1,9 @@
 package andytran.apis.array.services;
 
-import java.util.List;
-
 public interface ArrayService {
-	int getMaxWaterVolume(List<Integer> heights);
+	int maxWaterVolume(int[] heights);
 	void nextPermutation(int[] nums);
 	void rotateMatrix(int[][] matrix);
+	int maxSubArray(int[] nums);
+	boolean canJump(int[] nums);
 }

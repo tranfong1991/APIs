@@ -17,17 +17,11 @@ public class ArrayServiceImplTest {
 	private ArrayServiceImpl arrayService;
 
 	@Test
-	public void testGetMaxWaterVolume() {
-		List<Integer> heights = new ArrayList<>();
-		heights.add(1);
-		heights.add(4);
-		heights.add(2);
-		heights.add(3);
-		heights.add(1);
-		heights.add(3);
+	public void testGetMaxWaterVolume() {		
+		int[] heights = new int[]{1,4,2,3,1,3};
 		
-		assertEquals(12, arrayService.getMaxWaterVolume(heights));
-		assertEquals(0, arrayService.getMaxWaterVolume(new ArrayList<>()));
+		assertEquals(12, arrayService.maxWaterVolume(heights));
+		assertEquals(0, arrayService.maxWaterVolume(new int[0]));
 	}
 	
 	@Test
@@ -59,6 +53,22 @@ public class ArrayServiceImplTest {
 				assertEquals(expected[row][col], matrix[row][col]);
 			}
 		}
+	}
+	
+	@Test
+	public void testMaxSubArray() {
+		int[] nums = new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4};
+		int max = arrayService.maxSubArray(nums);
+		assertEquals(6, max);
+	}
+	
+	@Test
+	public void testCanJump() {
+		int[] nums1 = new int[]{2, 3, 1, 1, 4};
+		int[] nums2 = new int[]{3, 2, 1, 0, 4};
+		
+		assertEquals(true, arrayService.canJump(nums1));
+		assertEquals(false, arrayService.canJump(nums2));
 	}
 	
 }

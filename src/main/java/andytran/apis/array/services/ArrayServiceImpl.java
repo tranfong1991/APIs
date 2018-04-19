@@ -9,18 +9,18 @@ import org.springframework.stereotype.Service;
 public class ArrayServiceImpl implements ArrayService {
 
 	@Override
-	public int getMaxWaterVolume(List<Integer> heights) {
-		if(heights.isEmpty()){
+	public int maxWaterVolume(int[] heights) {
+		if(heights.length == 0){
 			return 0;
 		}
 		
 		int head = 0;
-		int tail = heights.size() - 1;
+		int tail = heights.length - 1;
 		int maxVolume = 0;
 		
 		while(head != tail){
-			int n1 = heights.get(head);
-			int n2 = heights.get(tail);
+			int n1 = heights[head];
+			int n2 = heights[tail];
 			
 			maxVolume = Math.max(maxVolume, Math.min(n1, n2) * (tail - head));
 			if(n1 < n2){
@@ -63,7 +63,7 @@ public class ArrayServiceImpl implements ArrayService {
 	@Override
 	public void rotateMatrix(int[][] matrix){
 		int n = matrix.length;
-        double layers = Math.ceil(n / 2);
+        double layers = Math.ceil(n / 2.0);
         
         for(int layer = 0; layer < layers; layer++){
             int[] save = new int[n - layer - 1];
@@ -93,6 +93,35 @@ public class ArrayServiceImpl implements ArrayService {
                 matrix[row][layer] = save[n - row - 1];
             }
         }
+	}
+	
+	@Override
+	//Kadane's Algorithm
+	public int maxSubArray(int[] nums){
+		int sum = 0;
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < nums.length; i++){
+            sum = Math.max(nums[i], nums[i] + sum);
+            max = Math.max(sum, max);
+        }
+        
+        return max;
+	}
+	
+	@Override
+	public boolean canJump(int[] nums){
+		int minSteps = 1;
+		int lastIndex = nums.length - 1;
+		
+		for(int i = lastIndex - 1; i >= 0; i--){
+			if(nums[i] >= minSteps){
+				minSteps = 1;
+			} else {
+				minSteps++;
+			}
+		}
+		
+		return minSteps == 1;
 	}
 
 }

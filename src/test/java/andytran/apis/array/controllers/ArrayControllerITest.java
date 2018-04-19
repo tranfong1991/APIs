@@ -3,6 +3,7 @@ package andytran.apis.array.controllers;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -86,6 +87,28 @@ public class ArrayControllerITest {
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.result", is(expected)));
+	}
+	
+	@Test
+	public void testMaxSubArray() throws Exception {
+		String[] nums = new String[] {
+				"-2", "1", "-3", "4", "-1", "2", "1", "-5", "4"
+		};
+		
+		mockMvc
+			.perform(get(BASE_ARRAY_API_URL + "/maxsubarray").param("nums", nums))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(6)));
+	}
+	
+	@Test
+	public void testCanJump() throws Exception {
+		mockMvc
+			.perform(get(BASE_ARRAY_API_URL + "/jumpgame").param("nums", new String[]{"4", "2", "1", "0", "4"}))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(true)));
 	}
 
 }
