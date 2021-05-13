@@ -71,4 +71,17 @@ public class ArrayServiceImplTest {
 		assertEquals(false, arrayService.canJump(nums2));
 	}
 	
+	@Test
+	public void testOptimalBooking() {
+		int[] num1 = new int[] {2, 1, 1, 2};
+		int[] num2 = new int[] {1, 5, 3};
+		int[] num3 = new int[] {1, 2, 3, 5, 1, 3};
+		int[] num4 = new int[] {};
+
+		assertEquals(4, arrayService.optimalBooking(num1));
+		assertEquals(5, arrayService.optimalBooking(num2));
+		assertEquals(10, arrayService.optimalBooking(num3));
+		assertEquals(0, arrayService.optimalBooking(num4));
+	}
+	
 }

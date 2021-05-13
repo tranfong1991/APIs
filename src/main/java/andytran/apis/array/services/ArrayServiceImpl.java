@@ -124,4 +124,69 @@ public class ArrayServiceImpl implements ArrayService {
 		return minSteps == 1;
 	}
 
+	@Override
+	//Dutch national flag problem
+	public void sortColors(int[] nums){
+		int redGroup = 0;
+        int blueGroup = nums.length - 1;
+        
+        int index = 0;
+        while(index < nums.length){
+            if(nums[index] == 1){
+                index++;
+                continue;
+            }
+            
+            if(nums[index] == 0 && index > redGroup){                
+                nums[index] = nums[redGroup];
+                nums[redGroup++] = 0;
+                continue;
+            } 
+            
+            if(nums[index] == 2 && index < blueGroup) {
+                nums[index] = nums[blueGroup];
+                nums[blueGroup--] = 2;
+                continue;
+            }
+            
+            index++;
+        }
+	}
+	
+	@Override
+	//Asked by Airbnb phone screen
+	public int optimalBooking(int[] bookings){
+		if(bookings.length == 0){
+			return 0;
+		}
+		
+		if(bookings.length == 1){
+			return bookings[0];
+		}
+		
+		int[] dp = new int[bookings.length];
+		dp[0] = bookings[0];
+		dp[1] = bookings[1];
+		
+		return Math.max(optimalBookingRecursive(bookings, dp, bookings.length - 1), 
+				optimalBookingRecursive(bookings, dp, bookings.length - 2));
+	}
+	
+	private int optimalBookingRecursive(int[] bookings, int[] dp, int index){
+		if(index < 0){
+			return 0;
+		}
+		
+		if(index == 0 && index == 1){
+			return dp[index];
+		}
+		
+		if(dp[index] != 0){
+			return dp[index];
+		}
+		
+		dp[index] = Math.max(optimalBookingRecursive(bookings, dp, index - 2), 
+				optimalBookingRecursive(bookings, dp, index - 3)) + bookings[index];
+		return dp[index];
+	}
 }

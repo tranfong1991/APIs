@@ -115,4 +115,14 @@ public class ArrayControllerTest {
 			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
 			.andExpect(jsonPath("$.result", is(true)));
 	}
+	
+	@Test
+	public void testOptimalBooking() throws Exception {
+		when(arrayService.optimalBooking(any(int[].class))).thenReturn(5);
+		mockMvc
+			.perform(get(BASE_ARRAY_API_URL + "/optimalbooking").param("bookings", new String[]{"1", "5", "3"}))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(5)));
+	}
 }

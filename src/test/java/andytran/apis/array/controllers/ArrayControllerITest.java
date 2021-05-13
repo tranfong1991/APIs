@@ -111,4 +111,13 @@ public class ArrayControllerITest {
 			.andExpect(jsonPath("$.result", is(true)));
 	}
 
+	@Test
+	public void testOptimalBooking() throws Exception {
+		mockMvc
+			.perform(get(BASE_ARRAY_API_URL + "/optimalbooking").param("bookings", new String[]{"1", "2", "3", "5", "1", "3"}))
+			.andExpect(status().isOk())
+			.andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+			.andExpect(jsonPath("$.result", is(10)));
+	}
+	
 }

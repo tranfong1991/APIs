@@ -1,7 +1,5 @@
 package andytran.apis.array.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,5 +52,10 @@ public class ArrayController {
 	@RequestMapping(value = "jumpgame", method = RequestMethod.GET)
 	public APIResponse canJump(@RequestParam int[] nums){
 		return ControllerUtils.makeSuccessResponse(arrayService.canJump(nums));
+	}
+	
+	@RequestMapping(value = "optimalbooking", method = RequestMethod.GET)
+	public APIResponse optimalBooking(@RequestParam int[] bookings){
+		return ControllerUtils.makeSuccessResponse(arrayService.optimalBooking(bookings));
 	}
 }
